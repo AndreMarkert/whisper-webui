@@ -1,0 +1,17 @@
+#submit-button0,
+#submit-button1,
+#submit-button2,
+#submit-button3 {
+  background: rgba(0, 67, 143, 0.9);
+  color: rgb(213, 231, 255);
+  border-color: rgb(0, 63, 136);
+}
+
+#clear-button0,
+#clear-button1,
+#clear-button2,
+#clear-button3 {
+  background: rgba(165, 47, 47, 0.9);
+  color: rgb(255, 226, 226);
+  border-color: rgb(145, 0, 0);
+}

@@ -1,0 +1,5 @@
+gradio==3.5
+python-dotenv==0.21.0
+whisper @ git+https://github.com/openai/whisper.git@62fe7f1009a534986ac1d32a4aef8c244d029c28
+pytube==12.1.0
+moviepy==1.0.3
