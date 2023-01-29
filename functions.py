@@ -6,6 +6,7 @@ from datetime import datetime
 from moviepy.editor import VideoFileClip
 from pytube.exceptions import RegexMatchError
 from options import LANGUAGES
+from pathlib import Path
 
 
 def whisper_to_text(whisper_output):
@@ -110,17 +111,23 @@ def audio_to_text(filepath, model_language="multilingual", model="base", languag
 
     # create files
     current_date = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    filename = Path(filepath).stem[:-8]
+    txt_path = output_path / current_date / f'{filename}.txt'
+    md_path = output_path / current_date/f'{filename}.md'
+    json_path = output_path / current_date / f'{filename}.json'
+    json_raw_path = output_path / current_date / f'{filename}_raw.json'
     if output_path is not None:
-        with open(output_path / f'{current_date}.txt', "w") as f:
+        (output_path / current_date).mkdir(exist_ok=True)
+        with open(txt_path, "w") as f:
             f.write(text)
-        with open(output_path / f'{current_date}.md', "w") as f:
+        with open(md_path, "w") as f:
             f.write(md)
-        with open(output_path / f'{current_date}.json', "w") as f:
+        with open(json_path, "w") as f:
             f.write(json.dumps(jsn, indent=4, ensure_ascii=False))
-        with open(output_path / f'{current_date}_raw.json', "w") as f:
+        with open(json_raw_path, "w") as f:
             f.write(json.dumps(jsn_raw, indent=4, ensure_ascii=False))
 
-    return [text, md, table, jsn, jsn_raw], [output_path / f'{current_date}.txt', output_path / f'{current_date}.md', output_path / f'{current_date}.json', output_path / f'{current_date}_raw.json']
+    return [text, md, table, jsn, jsn_raw], [txt_path, md_path, json_path, json_raw_path]
 
 
 def remove_file(filepath):
