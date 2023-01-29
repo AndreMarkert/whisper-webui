@@ -107,21 +107,22 @@ def mp3_to_subtitles(filepath, model_language, model, language):
 
 def video_to_subtitles(filepath, model_language, model, language):
     # convert video to mp3
+    audio_filepath = filepath.rsplit(".", 1)[0] + ".mp3"
     try:
-        convert_to_mp3(filepath, str(TEMP_PATH.absolute()))
+        convert_to_mp3(filepath, audio_filepath)
         # print("Converted video to mp3")
     except:
         raise Exception("Error converting video to mp3")
     # generate subtitles
     outputs, files = audio_to_text(
-        filepath.rsplit(".", 1)[0] + ".mp3",
+        audio_filepath,
         model_language,
         model,
         language,
         OUTPUT_PATH)
     # delete files
     remove_file(filepath)
-    remove_file(filepath.rsplit(".", 1)[0] + ".mp3")
+    remove_file(audio_filepath)
     return outputs + [files]
 
 
